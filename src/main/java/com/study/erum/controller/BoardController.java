@@ -105,9 +105,9 @@ public class BoardController {
   public String paging(Model model,
                        @RequestParam(value = "page", required = false, defaultValue = "1")
                        int page) {
-    System.out.println("page = "+ page);
     List<BoardDTO> pagingList = boardService.pagingList(page);
-    return "index";
+    model.addAttribute("boardList",pagingList);
+    return "paging";
   }
   
 }
