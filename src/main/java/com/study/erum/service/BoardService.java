@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.study.erum.dto.BoardDTO;
+import com.study.erum.dto.PageDTO;
 import com.study.erum.repository.BoardRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -68,5 +69,11 @@ public class BoardService {
     
     return pagingList;
   }
+
+
+	public PageDTO pagingParam(int page) {
+		PageDTO pageDTO = new PageDTO();
+		return pageDTO;
+	}
   
 }
