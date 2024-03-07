@@ -88,10 +88,16 @@ public class BoardController {
   
   //게시글 수정
   @PostMapping("/update")
-  public String update(@ModelAttribute BoardDTO boardDTO) {
+  public String update(@ModelAttribute BoardDTO boardDTO, Model model) {
+    //update 수행
     boardService.update(boardDTO);
+    //업데이트 된 최신 정보를 가져옴
+    BoardDTO dto = boardService.findById(boardDTO.getId());
+    model.addAttribute("board",dto);
     //상세조회페이지로 이동
-    return "redirect:/board?id="+boardDTO.getId();
+    return "detail";
+    //주의!! 아래 코드를 실행하면 조회수가 총 2번 증가한다.
+//    return "redirect:/board?id="+boardDTO.getId();
   }
   
 }
