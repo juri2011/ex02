@@ -78,11 +78,20 @@ public class BoardController {
     return "redirect:/board/";
   }
   
+  //게시글 수정 페이지로 이동
   @GetMapping("/update")
   public String updateForm(@RequestParam("id") Long id, Model model) {
     BoardDTO boardDTO = boardService.findById(id);
     model.addAttribute("board", boardDTO);
     return "update";
+  }
+  
+  //게시글 수정
+  @PostMapping("/update")
+  public String update(@ModelAttribute BoardDTO boardDTO) {
+    boardService.update(boardDTO);
+    //상세조회페이지로 이동
+    return "redirect:/board?id="+boardDTO.getId();
   }
   
 }
