@@ -120,8 +120,8 @@ public class BoardService {
 		PageDTO pageDTO = new PageDTO();
 		pageDTO.setPage(page);
 		pageDTO.setMaxPage(maxPage);
-		pageDTO.setMaxPage(startPage);
-		pageDTO.setMaxPage(endPage);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
 		return pageDTO;
 	}
   
