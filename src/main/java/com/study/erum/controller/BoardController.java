@@ -1,6 +1,9 @@
 package com.study.erum.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +36,15 @@ public class BoardController {
     }else {
       return "save";
     }
+  }
+  
+  //게시글 리스트 조회
+  @GetMapping("/")
+  public String findAll(Model model) {
+    List<BoardDTO> boardDTOList = boardService.findAll();
+    //list.jsp에 model을 실어서 전달
+    model.addAttribute("boardList",boardDTOList);
+    return "list";
   }
   
 }
