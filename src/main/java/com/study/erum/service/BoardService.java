@@ -85,7 +85,7 @@ public class BoardService {
 		 */
 		int maxPage = (int)(Math.ceil((double)boardCount/pageLimit));
 		/*
- 			startPage 로직 :
+ 			startPage 알고리즘 :
  			화면에 표시되는 페이지의 그룹을(예 : [1,2,3][4,5,6]...) 블록이라고 했을 때,
  			1. 현재 페이지의 블록 넘버를 구한다.
  				Math.ceil((double)page/blockLimit))

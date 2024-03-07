@@ -43,4 +43,8 @@
     	from board_table order by id desc limit #{start}, #{limit}; 
     </select>
     
+    <select id="boardCount" resultType="Integer">
+    	select count(id) from board_table;
+    </select>
+    
 </mapper>
