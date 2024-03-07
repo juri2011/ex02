@@ -24,5 +24,10 @@ public class BoardService {
   public List<BoardDTO> findAll() {
     return boardRepository.findAll();
   }
+
+
+  public static BoardDTO findById(Long id) {
+    return boardRepository.findById(id);
+  }
   
 }
