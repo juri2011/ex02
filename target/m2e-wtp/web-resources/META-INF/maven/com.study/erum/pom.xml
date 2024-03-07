@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.study</groupId>
 	<artifactId>erum</artifactId>
-	<name>ex000</name>
+	<name>ex02</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
