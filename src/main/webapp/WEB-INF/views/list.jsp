@@ -19,7 +19,9 @@
 		<c:forEach items="${boardList}" var="board">
 			<tr>
 				<td>${board.id}</td>
-				<td>${board.boardTitle}</td>
+				<td>
+					<a href="/board?id=${board.id}">${board.boardTitle}</a>
+				</td>
 				<td>${board.boardWriter}</td>
 				<td>${board.boardCreatedTime}</td>
 				<td>${board.boardHits}</td>
