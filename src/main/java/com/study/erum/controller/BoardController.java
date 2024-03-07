@@ -52,7 +52,7 @@ public class BoardController {
   @GetMapping
   //RequestParam은 쿼리스트링으로부터 값을 받아온다
   public String findById(@RequestParam("id") Long id, Model model) {
-    BoardDTO boardDTO = BoardService.findById(id);
+    BoardDTO boardDTO = boardService.findById(id);
     model.addAttribute("board",boardDTO);
     return "detail";
   }

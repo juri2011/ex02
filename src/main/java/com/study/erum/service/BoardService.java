@@ -26,7 +26,7 @@ public class BoardService {
   }
 
 
-  public static BoardDTO findById(Long id) {
+  public BoardDTO findById(Long id) {
     return boardRepository.findById(id);
   }
   
