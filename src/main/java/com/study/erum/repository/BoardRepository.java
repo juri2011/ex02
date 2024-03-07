@@ -35,4 +35,8 @@ public class BoardRepository {
     sql.delete("Board.delete",id);
   }
 
+  public void update(BoardDTO boardDTO) {
+    sql.update("Board.update",boardDTO);
+  }
+
 }
