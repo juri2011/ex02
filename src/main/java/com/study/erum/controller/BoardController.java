@@ -78,4 +78,11 @@ public class BoardController {
     return "redirect:/board/";
   }
   
+  @GetMapping()
+  public String updateForm(@RequestParam("id") Long id, Model model) {
+    BoardDTO boardDTO = boardService.findById(id);
+    model.addAttribute("board", boardDTO);
+    return "update";
+  }
+  
 }
