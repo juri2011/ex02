@@ -14,7 +14,7 @@ public class BoardRepository {
   private final SqlSessionTemplate sql;
   
   public int save(BoardDTO boardDTO) {
-    return sql.insert("Board.save",boardDTO);;
+    return sql.insert("Board.save",boardDTO);
   }
 
 }
