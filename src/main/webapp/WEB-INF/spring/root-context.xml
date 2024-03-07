@@ -1,51 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 		
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-	
-<!--
-	log4jdbc를 설정하기 위해 아래 두 줄을 주석처리함
-	log4jdbc : 내부적으로 실행된 쿼리를 log로 확인할 수 있음
--->
 
-<!-- 
-		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
-		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"></property>
- -->
- 
-		<!-- log4jdbc를 설정하기 위해 아래 두 줄을 추가함 -->
- 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property> 
-	
-		<property name="username" value="webdb"></property>
-		<property name="password" value="12345"></property>
-	</bean>
-	
-	<!-- HikariCP configuration -->
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-		<!-- 위의 hikariConfig bean을 참조(연결) 참조하려는 빈과 id가 같아야 한다 -->
-		<constructor-arg ref="hikariConfig"></constructor-arg>
-	</bean>
-	
-	<!-- jsp 프로젝트에서 java 방식으로 sqlSessionFactory를 의존주입 한 것과 무엇이 다른지 비교해보자 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"></property>
+	<bean id="dataSource"
+		  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/webdb" />
+		<property name="username" value="dbuser"/>
+		<property name="password" value="12345"/>
 	</bean>
 	
 	<!--
 		spring에서 mybatis를 인식하게 하는 두 가지 방법
 		1. 아래처럼 태그를 작성하여 스캔하는 방식
+		<mybatis-spring:scan base-package="com.study.erum.mapper"/>
 		2. 환경설정 파일을 작성하여 직접 지정하는 방식
 	-->
-	<mybatis-spring:scan base-package="com.study.erum.mapper"/>
+	<!-- jsp 프로젝트에서 java 방식으로 sqlSessionFactory를 의존주입 한 것과 무엇이 다른지 비교해보자 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value ="classpath:/mybatis/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:/mybatis/mapper/*.xml" />
+	</bean>
 	
-	<context:component-scan base-package="com.study.erum.sample" />
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="transactionManager"
+		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 </beans>
