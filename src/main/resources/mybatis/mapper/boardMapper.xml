@@ -5,4 +5,10 @@
 <!-- 쿼리만 작성하면 되는 편리함이 있는 반면 누구나 쿼리를 수정할 수 있다는 단점이 있다. -->
 <mapper namespace="Board">
 
+	<!-- 데이터 삽입 -->
+    <insert id="save" parameterType="board">
+        insert into board_table(boardWriter, boardPass, boardTitle, boardContents)
+        values (#{boardWriter}, #{boardPass}, #{boardTitle}, #{boardContents})
+    </insert>
+    
 </mapper>
