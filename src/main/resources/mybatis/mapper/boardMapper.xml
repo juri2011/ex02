@@ -11,4 +11,7 @@
         values (#{boardWriter}, #{boardPass}, #{boardTitle}, #{boardContents})
     </insert>
     
+    <select id="findAll" resultType="board">
+    	select id, boardWriter, boardPass, boardTitle, boardContents, boardCreatedTime, boardHits, fileAttached from board_table;
+    </select>
 </mapper>
