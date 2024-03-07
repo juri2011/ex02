@@ -108,6 +108,7 @@ public class BoardController {
                        int page) {
     List<BoardDTO> pagingList = boardService.pagingList(page);
     PageDTO pageDTO = boardService.pagingParam(page);
+    System.out.println(pageDTO.toString());
     model.addAttribute("boardList",pagingList);
     model.addAttribute("paging", pageDTO);
     return "paging";
