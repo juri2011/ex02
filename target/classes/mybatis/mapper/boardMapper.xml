@@ -15,4 +15,10 @@
     <select id="findAll" resultType="board">
     	select id, boardWriter, boardPass, boardTitle, boardContents, boardCreatedTime, boardHits, fileAttached from board_table order by id desc
     </select>
+    
+    <!-- 게시글 하나만 검색 -->
+    <select id="findById" parameterType="Long" resultType="board">
+    	select id, boardWriter, boardPass, boardTitle, boardContents, boardCreatedTime, boardHits, fileAttached
+    	from board_table where id = ${id};
+    </select>
 </mapper>
