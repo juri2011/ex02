@@ -40,5 +40,10 @@ public class BoardService {
     boardRepository.delete(id);
     
   }
+
+
+  public void update(BoardDTO boardDTO) {
+    boardRepository.update(boardDTO);
+  }
   
 }
