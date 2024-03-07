@@ -49,7 +49,7 @@ public class BoardService {
   }
 
 
-  public List<BoardDTO> pageList(int page) {
+  public List<BoardDTO> pagingList(int page) {
     // 한 페이지에 최대 출력할 게시물 수
     int pageLimit = 3;
     
@@ -66,7 +66,7 @@ public class BoardService {
     
     List<BoardDTO> pagingList = boardRepository.pagingList(pagingParams);
     
-    return boardRepository.pageList(page);
+    return pagingList;
   }
   
 }

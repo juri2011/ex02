@@ -1,6 +1,7 @@
 package com.study.erum.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -39,8 +40,8 @@ public class BoardRepository {
     sql.update("Board.update",boardDTO);
   }
 
-  public List<BoardDTO> pageList(int page) {
-    return sql.selectList("Board.pageList",page);
+  public List<BoardDTO> pagingList(Map<String, Integer> pagingParams) {
+    return sql.selectList("Board.pagingList",pagingParams);
   }
 
 }

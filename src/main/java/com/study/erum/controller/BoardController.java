@@ -106,7 +106,7 @@ public class BoardController {
                        @RequestParam(value = "page", required = false, defaultValue = "1")
                        int page) {
     System.out.println("page = "+ page);
-    List<BoardDTO> pagingList = boardService.pageList(page);
+    List<BoardDTO> pagingList = boardService.pagingList(page);
     return "index";
   }
   
