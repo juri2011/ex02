@@ -34,7 +34,7 @@ public class BoardController {
   public String save(@ModelAttribute BoardDTO boardDTO) {
     int saveResult = boardService.save(boardDTO);
     if(saveResult > 0) {
-      return "redirect:/board/";
+      return "redirect:/board/paging";
     }else {
       return "save";
     }
