@@ -34,5 +34,21 @@
 			<td>${board.boardContents}</td>
 		</tr>
 	</table>
+	<button onclick="listFn()">목록</button>
+	<button onclick="updateFn()">수정</button>
+	<button onclick="deleteFn()">삭제</button>
 </body>
+<script>
+	const listFn = () => {
+		location.href = "/board/";
+	}
+	const updateFn = () => {
+		const id = '${board.id}';
+		location.href = "/board/update?id="+id;
+	}
+	const deleteFn = () => {
+		const id = '${board.id}';
+		location.href = "/board/delete?id="+id;
+	}
+</script>
 </html>
