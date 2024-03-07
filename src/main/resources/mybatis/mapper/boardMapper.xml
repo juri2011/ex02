@@ -21,4 +21,9 @@
     	select id, boardWriter, boardPass, boardTitle, boardContents, boardCreatedTime, boardHits, fileAttached
     	from board_table where id = ${id};
     </select>
+    
+    <!-- 조회수 증가 -->
+    <update id="updateHits" parameterType="Long">
+    	update board_table set boardHits = boardHits + 1 where id = ${id};
+    </update>
 </mapper>
