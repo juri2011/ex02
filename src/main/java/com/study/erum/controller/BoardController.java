@@ -100,4 +100,14 @@ public class BoardController {
 //    return "redirect:/board?id="+boardDTO.getId();
   }
   
+  @GetMapping("/paging")
+  //쿼리스트링을 통해 page 값을 받아오는데 쿼리스트링이 없으면 기본 값을 1페이지로 지정한다.
+  public String paging(Model model,
+                       @RequestParam(value = "page", required = false, defaultValue = "1")
+                       int page) {
+    System.out.println("page = "+ page);
+    List<BoardDTO> pagingList = boardService.pageList(page);
+    return "index";
+  }
+  
 }
