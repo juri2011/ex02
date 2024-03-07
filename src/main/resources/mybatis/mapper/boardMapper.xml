@@ -13,6 +13,6 @@
     
     <!-- 데이터 전체 검색 -->
     <select id="findAll" resultType="board">
-    	select id, boardWriter, boardPass, boardTitle, boardContents, boardCreatedTime, boardHits, fileAttached from board_table;
+    	select id, boardWriter, boardPass, boardTitle, boardContents, boardCreatedTime, boardHits, fileAttached from board_table order by id desc
     </select>
 </mapper>
