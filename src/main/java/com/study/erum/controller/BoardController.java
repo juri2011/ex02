@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.study.erum.dto.BoardDTO;
 import com.study.erum.service.BoardService;
@@ -45,6 +46,15 @@ public class BoardController {
     //list.jsp에 model을 실어서 전달
     model.addAttribute("boardList",boardDTOList);
     return "list";
+  }
+  
+  //상세 페이지 조회
+  @GetMapping
+  //RequestParam은 쿼리스트링으로부터 값을 받아온다
+  public String findById(@RequestParam("id") Long id, Model model) {
+    BoardDTO boardDTO = BoardService.findById(id);
+    model.addAttribute("board",boardDTO);
+    return "detail";
   }
   
 }
