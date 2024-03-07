@@ -1,6 +1,8 @@
 package com.study.erum.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -44,6 +46,27 @@ public class BoardService {
 
   public void update(BoardDTO boardDTO) {
     boardRepository.update(boardDTO);
+  }
+
+
+  public List<BoardDTO> pageList(int page) {
+    // 한 페이지에 최대 출력할 게시물 수
+    int pageLimit = 3;
+    
+    /*
+      페이지 제일 첫번째 게시물 순서
+      page 1 -> 0 (0 * 3)
+      page 2 -> 3 (1 * 3)
+      page 3 -> 6 (2 * 3)
+     */
+    int pagingStart = (page-1) * pageLimit;
+    Map<String, Integer> pagingParams = new HashMap<String, Integer>();
+    pagingParams.put("start", pagingStart);
+    pagingParams.put("limit", pageLimit);
+    
+    List<BoardDTO> pagingList = boardRepository.pagingList(pagingParams);
+    
+    return boardRepository.pageList(page);
   }
   
 }

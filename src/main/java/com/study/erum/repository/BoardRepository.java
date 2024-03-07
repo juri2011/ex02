@@ -39,4 +39,8 @@ public class BoardRepository {
     sql.update("Board.update",boardDTO);
   }
 
+  public List<BoardDTO> pageList(int page) {
+    return sql.selectList("Board.pageList",page);
+  }
+
 }
