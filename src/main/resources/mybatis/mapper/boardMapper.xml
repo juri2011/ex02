@@ -32,8 +32,15 @@
     	delete from board_table where id=#{id};
     </delete>
     
+    <!-- 게시글 수정 -->
     <update id="update" parameterType="board">
     	update board_table set boardWriter = #{boardWriter}, boardTitle = #{boardTitle}, boardContents = #{boardContents} where id = #{id};
     </update>
+    
+    <!-- 페이징으로 지정된 수만큼 게시글 출력 -->
+    <select id="pagingList" parameterType="java.util.HashMap" resultType="board">
+    	select id, boardWriter, boardPass, boardTitle, boardContents, boardCreatedTime, boardHits, fileAttached
+    	from board_table order by id desc limit #{start}, #{limit}; 
+    </select>
     
 </mapper>
