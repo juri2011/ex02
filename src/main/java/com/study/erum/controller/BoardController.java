@@ -28,7 +28,7 @@ public class BoardController {
     return "save";
   }
   
-  //save 기능 수행
+  //게시글 작성
   @PostMapping("/save")
   public String save(@ModelAttribute BoardDTO boardDTO) {
     int saveResult = boardService.save(boardDTO);
@@ -56,6 +56,26 @@ public class BoardController {
     BoardDTO boardDTO = boardService.findById(id);
     model.addAttribute("board",boardDTO);
     return "detail";
+  }
+  
+  //게시글 삭제
+  @GetMapping("/delete")
+  public String deleteForm(@RequestParam("id") Long id) {
+    boardService.delete(id);
+    /*
+       "list" 대신에 redirect 쓰는 이유?
+       return "name"과 return "redirect:~~"의 차이
+       1. return "name" : servlet-context.xml에 지정된 대로 같은 이름을 가진 jsp파일을 호출한다.
+                          (url이 변경되지 않으므로 새로고침시 같은 요청을 계속 처리할 수 있다.)
+       2. return "redirect:~~~" : 해당 주소로 URL 요청을 다시 한다.(url이 변경된다.)
+       
+       * 번외 : forward?
+               forward는
+               
+       redirect는 post가 중복되는 것을 막아준다. 이걸 PRG 패턴이라고 한다.
+       
+     */
+    return "redirect:/board/";
   }
   
 }
