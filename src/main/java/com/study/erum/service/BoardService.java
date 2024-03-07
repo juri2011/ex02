@@ -16,7 +16,10 @@ import lombok.RequiredArgsConstructor;
 public class BoardService {
 
   private final BoardRepository boardRepository;
-
+  //한 페이지당 출력할 최대 게시물 수
+  private final int pageLimit = 3;
+  //화면에 출력할 최대 페이징 수
+  private final int blockLimits = 3;
   
   public int save(BoardDTO boardDTO) {
     return boardRepository.save(boardDTO);
@@ -50,9 +53,6 @@ public class BoardService {
 
 
   public List<BoardDTO> pagingList(int page) {
-    // 한 페이지에 최대 출력할 게시물 수
-    int pageLimit = 3;
-    
     /*
       페이지 제일 첫번째 게시물 순서
       page 1 -> 0 (0 * 3)
