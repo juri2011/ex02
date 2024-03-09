@@ -3,7 +3,7 @@ Spring Framework 기반으로 국비지원 수업 때 진행된 게시판 CRUD �
 
 ## :computer: 개발 환경
 * `JAVA11`
-* `javascript` `jQuery`
+* `javascript`
 * `STS3`
 * `MySql`
 * `Spring` `MyBatis`
