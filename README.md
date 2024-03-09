@@ -1,4 +1,4 @@
-# ex01
+# ex02_2
 Spring Framework 기반으로 국비지원 수업 때 진행된 게시판 CRUD 실습 예제 프로젝트입니다.
 
 ## :computer: 개발 환경
