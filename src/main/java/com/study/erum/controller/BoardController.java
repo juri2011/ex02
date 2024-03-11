@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.study.erum.dto.BoardDTO;
+import com.study.erum.dto.PageDTO;
 import com.study.erum.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,7 @@ public class BoardController {
   public String save(@ModelAttribute BoardDTO boardDTO) {
     int saveResult = boardService.save(boardDTO);
     if(saveResult > 0) {
-      return "redirect:/board/";
+      return "redirect:/board/paging";
     }else {
       return "save";
     }
@@ -51,10 +52,13 @@ public class BoardController {
   //상세 페이지 조회
   @GetMapping
   //RequestParam은 쿼리스트링으로부터 값을 받아온다
-  public String findById(@RequestParam("id") Long id, Model model) {
+  public String findById(@RequestParam("id") Long id,
+		  				 @RequestParam(value="page",required=false, defaultValue="1") int page,
+		  				 Model model) {
     boardService.updateHits(id);
     BoardDTO boardDTO = boardService.findById(id);
     model.addAttribute("board",boardDTO);
+    model.addAttribute("page", page);
     return "detail";
   }
   
@@ -106,7 +110,10 @@ public class BoardController {
                        @RequestParam(value = "page", required = false, defaultValue = "1")
                        int page) {
     List<BoardDTO> pagingList = boardService.pagingList(page);
+    PageDTO pageDTO = boardService.pagingParam(page);
+    System.out.println(pageDTO.toString());
     model.addAttribute("boardList",pagingList);
+    model.addAttribute("paging", pageDTO);
     return "paging";
   }
   
