@@ -1,0 +1,69 @@
+use webdb;
+
+drop table if exists board_table;
+
+create table board_table(
+	id bigint primary key auto_increment,
+	boardWriter varchar(50),
+	boardPass varchar(20),
+	boardTitle varchar(50),
+	boardContents varchar(500),
+	boardCreatedTime datetime default now(),
+	boardHits int default 0,
+	fileAttached int default 0
+);
+
+
+desc board_table;
+
+drop table if exists board_file_table;
+
+/*
+	#boardId가 unique가 아니므로 일대다 연결이 됨, 속성이 같아야 연결됨
+	#on delete cascade : 삭제시 관련된 모든 데이터 삭제
+	#oracle은 on update cascade가 없기 때문에 trigger로 구현해야 함
+ */
+
+create table board_file_table(
+	id bigint auto_increment primary key,
+	originalFileName varchar(100),
+	storedFileName varchar(100),
+	boardId bigint,
+	constraint fk_board_file foreign key(boardId) references board_table(id) on delete cascade
+);
+
+drop table if exists comment_table;
+create table comment_table(
+	id bigint primary key auto_increment,
+	commentWriter varchar(50),
+	commentContents varchar(200),
+	boardId bigint,
+	commentCreatedTime datetime default now(),
+	constraint fk_comment_table foreign key (boardId) references board_table(id) on delete cascade
+);
+
+alter table board_table rename column fileAttatched to fileAttached;
+
+select * from board_table;
+select id, boardWriter, boardPass, boardTitle, boardContents, boardCreatedTime, boardHits, fileAttached from board_table;
+select id, boardWriter, boardPass, boardTitle, boardContents, boardCreatedTime, boardHits, fileAttached from board_table
+where id = 1;
+
+update board_table set boardHits = boardHits + 1 where id = 1;
+
+delete from board_table where id=8;
+
+update board_table set boardWriter = '오주리', boardTitle = '제목', boardContents = '내용' where id = 1;
+
+-- 현 페이지 3개씩 출력
+select * from board_table order by id desc limit 0, 3; 
+select * from board_table order by id desc limit 1, 3; 
+select * from board_table order by id desc limit 2, 3; 
+
+select * from board_table order by id desc limit 0, 5;
+
+-- 1페이지 : 12, 11, 9 / 2페이지 : 7, 6, 5 / 3페이지 : 4, 3, 2 / 4페이지 : 1
+select * from board_table order by id desc limit 0, 3; 
+select * from board_table order by id desc limit 3, 3; 
+select * from board_table order by id desc limit 6, 3; 
+select * from board_table order by id desc limit 9, 3; 
